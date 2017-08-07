@@ -120,6 +120,7 @@ module.exports = class extends Yeoman
                          this.email = this.user.git.email();
                          this.repository = 'https://github.com/' + this.githubUsername + '/' + this.moduleName + '.git';
 
+                         this.badges = props.badges;
                          this.badgesTop = '';
                          this.badgesFoot = '';
                          const

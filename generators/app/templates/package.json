@@ -1,47 +1,48 @@
 {
-  "name": "<%= moduleName %>",
-  "version": "1.0.0",
-  "description": "<%= moduleDesc %>",
-  "main": "index.js",
-  "scripts": {
-    "clean": "rimraf dist",
-    "lint": "eslint src test",
-    "check": "npm run lint -s && dependency-check package.json --entry src",
-    "watch": "watch 'npm run build' src test",
-    "test": "babel-node test/index.js | tspec",
-    "prebuild": "npm run check -s && npm run clean -s",
-    "build": "babel --optional runtime src -d dist",
-    "postbuild": "npm run test -s",
-    "coverage": "nyc --reporter=lcov --reporter=text npm run test",
-    "coveralls": "npm run coverage -s && coveralls < coverage/lcov.info",
-    "postcoveralls": "rimraf ./coverage",
-    "prepublish": "npm run build -s",
-    "deploy": "git pull --rebase origin master && git push origin master",
-    "patch": "npm version patch && npm publish",
-    "minor": "npm version minor && npm publish",
-    "major": "npm version major && npm publish",
-    "postpublish": "git push origin master --follow-tags",
-    "toc": "doctoc --github --title \"# Changelog\" CHANGELOG.md"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+<%= repository %>.git"
-  },
-  "keywords": [
-    <% moduleKeywords.forEach(function(keyword, i, arr) { %>"<%= keyword %>"<% if (i !== arr.length - 1) { %>,
-    <% } %><% }); %>
-  ],
-  "author": "<%= name %> <<%= email %>>",
-  "license": "MIT",
-  "bugs": {
-    "url": "<%= repository %>/issues"
-  },
-  "homepage": "<%= repository %>#readme",
-  "devDependencies": {
-    "eslint": "^4.4.0",
-    "coveralls": "^2.13.1",
-    "rimraf": "^2.4.2",
-    "dependency-check": "^2.5.1",
-    "doctoc": "^0.15.0"
-  }
+    "name": "<%= moduleName %>",
+    "version": "1.0.0",
+    "description": "<%= moduleDesc %>",
+    "main": "index.js",
+    "scripts": {
+        "lint": "eslint index.js lib/**/*.js src/**/*.js",
+        "check": "npm run lint -s && dependency-check package.json --entry index.js",
+        "test": "istanbul cover node_modules/mocha/bin/_mocha -- ./test/",
+        "coverage": "nyc --reporter=lcov --reporter=text npm run test", <% if ( badges.includes( 'coveralls' ) ) { %>
+        "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+        "postcoveralls": "rimraf ./coverage", <% } %><% if ( badges.includes( 'codacy' ) ) { %>
+        "codacy": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage && rm -rf ./coverage",
+        "postcodacy": "rimraf ./coverage", <% } %>
+        "prepublish": "npm test",
+        "patch": "npm version patch && npm publish",
+        "minor": "npm version minor && npm publish",
+        "major": "npm version major && npm publish",
+        "postpublish": "git push origin master --follow-tags",
+        "toc": "doctoc --github --title \"# Changelog\" CHANGELOG.md"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+<%= repository %>.git"
+    },
+    "keywords": [
+        <% moduleKeywords.forEach(function(keyword, i, arr) { %>"<%= keyword %>"<% if (i !== arr.length - 1) { %>,
+        <% } %><% }); %>
+    ],
+    "author": "<%= name %> <<%= email %>>",
+    "license": "MIT",
+    "bugs": {
+        "url": "<%= repository %>/issues"
+    },
+    "homepage": "<%= repository %>#readme",
+    "devDependencies": {
+        "istanbul": "^0.4.5",
+        "mocha": "^3.5.0",
+        "chai": "^4.1.1",
+        "eslint": "^4.4.0",<% if ( badges.includes( 'coveralls' ) ) { %>
+        "coveralls": "^2.13.1", <% } %><% if ( badges.includes( 'codacy' ) ) { %>
+        "codacy-coverage": "^2.0.2", <% } %>
+        "rimraf": "^2.4.2",
+        "dependency-check": "^2.5.1",
+        "doctoc": "^0.15.0",
+        "mocha-lcov-reporter": "^1.3.0"
+    }
 }
