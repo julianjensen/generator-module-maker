@@ -1,6 +1,6 @@
 {
     "name": "generator-module-maker",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Node module scaffolding template with lots of optional badges",
     "license": "MIT",
     "main": "generators/app/index.js",
