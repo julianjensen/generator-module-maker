@@ -72,55 +72,56 @@ const
             url:    'https://codebeat.co/projects/github-com-$githubUsername$-PROJECT-master',
             image:  'https://codebeat.co/badges/CODEBEATSERIAL'
         }
-    };
+    },
+    prompts = [
+        {
+            name:    "moduleName",
+            message: "What is the module name?",
+            filter:  s => slug( s ),
+            default: require( "path" ).basename( process.cwd() ).replace( /\s+/g, "-" )
+        },
+        {
+            name:    "moduleDesc",
+            message: "What is the module description?",
+            default: props => props.name
+        },
+        {
+            name:     "githubUsername",
+            message:  "What is your GitHub user name?",
+            store:    true,
+            validate: value => value.length > 0 ? true : "github needed"
+        },
+        {
+            name:    "moduleKeywords",
+            message: "Keywords?",
+            default: "node"
+        },
+        {
+            type: 'checkbox',
+            name: 'badges',
+            message: "Select what badges to include",
+            choices: badges
+        },
+        {
+            name: "codacyserial",
+            message: "Enter your codacy project token",
+            store: true,
+            when: answers => answers.badges.indexOf( 'codacy' ) !== -1
+        },
+        {
+            name: "codebeatserial",
+            message: "Enter your codebeat project secret (Project UUID under settings)",
+            store: true,
+            when: answers => answers.badges.indexOf( 'codebeat' ) !== -1
+        }
+
+    ];
 
 module.exports = class extends Yeoman
 {
     prompting()
     {
-        return this.prompt( [
-                         {
-                             name:    "moduleName",
-                             message: "What is the module name?",
-                             filter:  s => slug( s ),
-                             default: require( "path" ).basename( process.cwd() ).replace( /\s+/g, "-" )
-                         },
-                         {
-                             name:    "moduleDesc",
-                             message: "What is the module description?",
-                             default: props => props.name
-                         },
-                         {
-                             name:     "githubUsername",
-                             message:  "What is your GitHub user name?",
-                             store:    true,
-                             validate: value => value.length > 0 ? true : "github needed"
-                         },
-                         {
-                             name:    "moduleKeywords",
-                             message: "Keywords?",
-                             default: "node"
-                         },
-                         {
-                             type: 'checkbox',
-                             name: 'badges',
-                             message: "Select what badges to include",
-                             choices: badges
-                         },
-                         {
-                             name: "codacyserial",
-                             message: "Enter your codacy project token",
-                             store: true,
-                             when: answers => answers.badges.indexOf( 'codacy' ) !== -1
-                         },
-                         {
-                             name: "codebeatserial",
-                             message: "Enter your codebeat project secret (Project UUID under settings)",
-                             store: true,
-                             when: answers => answers.badges.indexOf( 'codebeat' ) !== -1
-                         }
-
-                     ] ).then(
+        return this.prompt( prompts ).then(
                      props => {
                          this.moduleName = props.moduleName;
                          this.moduleDesc = props.moduleDesc;
@@ -139,20 +140,17 @@ module.exports = class extends Yeoman
                              top = [],
                              foot = [];
 
-                         if ( props.badges && props.badges.length )
-                         {
-                             props.badges.forEach( name => {
-                                 const { name: title, image, url } = badgeUrls[ name ];
-                                 top.push( `[![${title}][${name}-image]][${name}-url]` );
-                                 foot.push(
-                                     `[${name}-url]: ${url.replace( /PROJECT/g, this.moduleName ).replace( /\$([^$]+\$)/g, ( $0, $1 ) => this[ $1 ] )}`,
-                                     `[${name}-image]: ${image.replace( /PROJECT/g, this.moduleName ).replace( /CODACYSERIAL/g, props.codacyserial ).replace( /CODEBEATSERIAL/g, props.codebeatserial )}\n`
-                                 );
-                             } );
+                         ( props.badges || [] ).forEach( name => {
+                             const { name: title, image, url } = badgeUrls[ name ];
+                             top.push( `[![${title}][${name}-image]][${name}-url]` );
+                             foot.push(
+                                 `[${name}-url]: ${url.replace( /PROJECT/g, this.moduleName ).replace( /\$([^$]+\$)/g, ( $0, $1 ) => this[ $1 ] )}`,
+                                 `[${name}-image]: ${image.replace( /PROJECT/g, this.moduleName ).replace( /CODACYSERIAL/g, props.codacyserial ).replace( /CODEBEATSERIAL/g, props.codebeatserial )}\n`
+                             );
+                         } );
 
-                             this.badgesTop = top.join( '\n' );
-                             this.badgesFoot = foot.join( '\n' );
-                         }
+                         this.badgesTop = top.join( '\n' );
+                         this.badgesFoot = foot.join( '\n' );
 
                          this.files = {};
                          this._template( "README.md" );
