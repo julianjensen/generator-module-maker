@@ -13,7 +13,8 @@ const
         { checked: true, name: "codacy" },
         { checked: true, name: "david-dm" },
         { checked: true, name: "bithound" },
-        { checked: true, name: "codeclimate" }
+        { checked: true, name: "codeclimate" },
+        { checked: true, name: "codebeat" }
     ],
     badgeUrls = {
         'coveralls':   {
@@ -49,7 +50,7 @@ const
         'codacy':      {
             name: 'Codacy Badge',
             url:   'https://www.codacy.com/app/julianjensen/PROJECT?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=julianjensen/PROJECT&amp;utm_campaign=Badge_Grade',
-            image: 'https://api.codacy.com/project/badge/Grade/SERIAL'
+            image: 'https://api.codacy.com/project/badge/Grade/CODACYSERIAL'
         },
         'david-dm':    {
             name: 'david-dm',
@@ -65,6 +66,11 @@ const
             name: 'Code Climate',
             image: 'https://codeclimate.com/github/julianjensen/PROJECT/badges/gpa.svg',
             url: 'https://codeclimate.com/github/julianjensen/PROJECT'
+        },
+        'codebeat':     {
+            name:   'Codebeat Badge',
+            url:    'https://codebeat.co/projects/github-com-$githubUsername$-PROJECT-master',
+            image:  'https://codebeat.co/badges/CODEBEATSERIAL'
         }
     };
 
@@ -102,10 +108,16 @@ module.exports = class extends Yeoman
                              choices: badges
                          },
                          {
-                             name: "serial",
-                             message: "Enter your project serial number for codacy",
+                             name: "codacyserial",
+                             message: "Enter your codacy project token",
                              store: true,
                              when: answers => answers.badges.indexOf( 'codacy' ) !== -1
+                         },
+                         {
+                             name: "codebeatserial",
+                             message: "Enter your codebeat project secret (Project UUID under settings)",
+                             store: true,
+                             when: answers => answers.badges.indexOf( 'codebeat' ) !== -1
                          }
 
                      ] ).then(
@@ -133,8 +145,8 @@ module.exports = class extends Yeoman
                                  const { name: title, image, url } = badgeUrls[ name ];
                                  top.push( `[![${title}][${name}-image]][${name}-url]` );
                                  foot.push(
-                                     `[${name}-url]: ${url.replace( /PROJECT/g, this.moduleName )}`,
-                                     `[${name}-image]: ${image.replace( /PROJECT/g, this.moduleName ).replace( /SERIAL/g, props.serial )}\n`
+                                     `[${name}-url]: ${url.replace( /PROJECT/g, this.moduleName ).replace( /\$([^$]+\$)/g, ( $0, $1 ) => this[ $1 ] )}`,
+                                     `[${name}-image]: ${image.replace( /PROJECT/g, this.moduleName ).replace( /CODACYSERIAL/g, props.codacyserial ).replace( /CODEBEATSERIAL/g, props.codebeatserial )}\n`
                                  );
                              } );
 
