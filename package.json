@@ -1,7 +1,7 @@
 {
     "name": "generator-module-maker",
     "version": "1.0.0",
-    "description": "Node module scaffolding template [Tape, Istanbul, Coveralls, Travis, Husky, Julian codestyle]",
+    "description": "Node module scaffolding template with lots of optional badges",
     "license": "MIT",
     "main": "generators/app/index.js",
     "files": [
