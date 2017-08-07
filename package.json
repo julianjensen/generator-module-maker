@@ -1,0 +1,64 @@
+{
+    "name": "generator-module-maker",
+    "version": "1.0.0",
+    "description": "Node module scaffolding template [Tape, Istanbul, Coveralls, Travis, Husky, Julian codestyle]",
+    "license": "MIT",
+    "main": "app/index.js",
+    "repository": "https://github.com/julianjensen/generator-module-maker",
+    "contributors": [
+        {
+            "name": "Julian Jensen",
+            "email": "jjdanois@gmail.com",
+            "url": "https://github.com/julianjensen"
+        },
+        {
+            "name": "Nicolas Fernandez",
+            "email": "nicomf1982@gmail.com",
+            "url": "https://github.com/nicomf1982"
+        }
+    ],
+    "scripts": {
+        "test": "istanbul cover node_modules/mocha/bin/_mocha -- ./test/",
+        "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    },
+    "files": [
+        "app"
+    ],
+    "keywords": [
+        "yeoman-generator",
+        "boilerplate",
+        "node",
+        "starter",
+        "yeoman",
+        "plugin",
+        "module",
+        "node_module",
+        "node-module",
+        "npm-module",
+        "tape",
+        "tap",
+        "coveralls",
+        "coveralls.io",
+        "travis",
+        "codacy",
+        "codeclimate",
+        "cli",
+        "npm",
+        "npm scripts",
+        "productivity"
+    ],
+    "dependencies": {
+        "camelcase": "^2.0.1",
+        "generator-git-init": "^1.0.4",
+        "generator-travis": "^1.1.4",
+        "humanize-url": "^1.0.1",
+        "normalize-url": "^1.4.0",
+        "slug": "^0.9.1",
+        "yeoman-generator": "^0.21.1"
+    },
+    "devDependencies": {
+        "chai": "^4.1.1",
+        "istanbul": "^0.4.5",
+        "mocha": "^3.5.0"
+    }
+}

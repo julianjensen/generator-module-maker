@@ -1,0 +1,47 @@
+{
+  "name": "<%= moduleName %>",
+  "version": "1.0.0",
+  "description": "<%= moduleDesc %>",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf dist",
+    "lint": "eslint src test",
+    "check": "npm run lint -s && dependency-check package.json --entry src",
+    "watch": "watch 'npm run build' src test",
+    "test": "babel-node test/index.js | tspec",
+    "prebuild": "npm run check -s && npm run clean -s",
+    "build": "babel --optional runtime src -d dist",
+    "postbuild": "npm run test -s",
+    "coverage": "nyc --reporter=lcov --reporter=text npm run test",
+    "coveralls": "npm run coverage -s && coveralls < coverage/lcov.info",
+    "postcoveralls": "rimraf ./coverage",
+    "prepublish": "npm run build -s",
+    "deploy": "git pull --rebase origin master && git push origin master",
+    "patch": "npm version patch && npm publish",
+    "minor": "npm version minor && npm publish",
+    "major": "npm version major && npm publish",
+    "postpublish": "git push origin master --follow-tags",
+    "toc": "doctoc --github --title \"# Changelog\" CHANGELOG.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+<%= repository %>.git"
+  },
+  "keywords": [
+    <% moduleKeywords.forEach(function(keyword, i, arr) { %>"<%= keyword %>"<% if (i !== arr.length - 1) { %>,
+    <% } %><% }); %>
+  ],
+  "author": "<%= name %> <<%= email %>>",
+  "license": "MIT",
+  "bugs": {
+    "url": "<%= repository %>/issues"
+  },
+  "homepage": "<%= repository %>#readme",
+  "devDependencies": {
+    "eslint": "^4.4.0",
+    "coveralls": "^2.13.1",
+    "rimraf": "^2.4.2",
+    "dependency-check": "^2.5.1",
+    "doctoc": "^0.15.0"
+  }
+}
