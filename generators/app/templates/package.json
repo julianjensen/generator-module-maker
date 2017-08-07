@@ -7,9 +7,9 @@
         "lint": "eslint index.js lib/**/*.js src/**/*.js",
         "check": "npm run lint -s && dependency-check package.json --entry index.js",
         "test": "istanbul cover node_modules/mocha/bin/_mocha -- ./test/",<% if ( badges.includes( 'coveralls' ) ) { %>
-        "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+        "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
         "postcoveralls": "rimraf ./coverage", <% } %><% if ( badges.includes( 'codacy' ) ) { %>
-        "codacy": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage && rm -rf ./coverage",
+        "codacy": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage",
         "postcodacy": "rimraf ./coverage", <% } %>
         "prepublish": "npm test",
         "patch": "npm version patch && npm publish",
