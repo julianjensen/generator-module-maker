@@ -1,0 +1,38 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - yeoman-generator > lodash:
+        patched: '2020-05-01T07:24:05.903Z'
+    - yeoman-generator > async > lodash:
+        patched: '2020-05-01T07:24:05.903Z'
+    - yeoman-generator > yeoman-environment > lodash:
+        patched: '2020-05-01T07:24:05.903Z'
+    - generator-git-setup > yeoman-generator > lodash:
+        patched: '2020-05-01T07:24:05.903Z'
+    - generator-travis > yeoman-generator > lodash:
+        patched: '2020-05-01T07:24:05.903Z'
+    - generator-travis > merge-and-concat > lodash:
+        patched: '2020-05-01T07:24:05.903Z'
+    - generator-git-setup > yeoman-generator > async > lodash:
+        patched: '2020-05-01T07:24:05.903Z'
+    - generator-travis > yeoman-generator > async > lodash:
+        patched: '2020-05-01T07:24:05.903Z'
+    - yeoman-generator > yeoman-environment > grouped-queue > lodash:
+        patched: '2020-05-01T07:24:05.903Z'
+    - yeoman-generator > yeoman-environment > inquirer > lodash:
+        patched: '2020-05-01T07:24:05.903Z'
+    - generator-git-setup > yeoman-generator > yeoman-environment > lodash:
+        patched: '2020-05-01T07:24:05.903Z'
+    - generator-travis > yeoman-generator > yeoman-environment > lodash:
+        patched: '2020-05-01T07:24:05.903Z'
+    - generator-git-setup > yeoman-generator > yeoman-environment > grouped-queue > lodash:
+        patched: '2020-05-01T07:24:05.903Z'
+    - generator-travis > yeoman-generator > yeoman-environment > grouped-queue > lodash:
+        patched: '2020-05-01T07:24:05.903Z'
+    - generator-git-setup > yeoman-generator > yeoman-environment > inquirer > lodash:
+        patched: '2020-05-01T07:24:05.903Z'
+    - generator-travis > yeoman-generator > yeoman-environment > inquirer > lodash:
+        patched: '2020-05-01T07:24:05.903Z'
