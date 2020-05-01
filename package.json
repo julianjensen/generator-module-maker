@@ -1,61 +1,65 @@
 {
-    "name": "generator-module-maker",
-    "version": "1.0.6",
-    "description": "Node module scaffolding template with lots of optional badges",
-    "license": "MIT",
-    "main": "generators/app/index.js",
-    "files": [
-        "generators"
-    ],
-    "repository": "https://github.com/julianjensen/generator-module-maker",
-    "contributors": [
-        {
-            "name": "Julian Jensen",
-            "email": "jjdanois@gmail.com",
-            "url": "https://github.com/julianjensen"
-        }
-    ],
-    "scripts": {
-        "test": "istanbul cover node_modules/mocha/bin/_mocha -- ./test/"
-    },
-    "keywords": [
-        "yeoman-generator",
-        "boilerplate",
-        "node",
-        "starter",
-        "yeoman",
-        "plugin",
-        "module",
-        "node_module",
-        "node-module",
-        "npm-module",
-        "tape",
-        "tap",
-        "coveralls",
-        "coveralls.io",
-        "travis",
-        "codacy",
-        "codeclimate",
-        "cli",
-        "npm",
-        "npm scripts",
-        "productivity"
-    ],
-    "dependencies": {
-        "camelcase": "^2.0.1",
-        "generator-git-setup": "^1.0.0",
-        "generator-travis": "^1.1.4",
-        "normalize-url": "^1.4.0",
-        "slug": "^0.9.1",
-        "yeoman-generator": "^1.1.1"
-    },
-    "devDependencies": {
-        "bluebird": "^3.5.0",
-        "eslint": "^4.4.1",
-        "fs-extra": "^4.0.1",
-        "istanbul": "^0.4.5",
-        "mocha": "^3.5.0",
-        "yeoman-assert": "^3.0.0",
-        "yeoman-test": "^1.7.0"
+  "name": "generator-module-maker",
+  "version": "1.0.6",
+  "description": "Node module scaffolding template with lots of optional badges",
+  "license": "MIT",
+  "main": "generators/app/index.js",
+  "files": [
+    "generators"
+  ],
+  "repository": "https://github.com/julianjensen/generator-module-maker",
+  "contributors": [
+    {
+      "name": "Julian Jensen",
+      "email": "jjdanois@gmail.com",
+      "url": "https://github.com/julianjensen"
     }
+  ],
+  "scripts": {
+    "test": "istanbul cover node_modules/mocha/bin/_mocha -- ./test/",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
+  "keywords": [
+    "yeoman-generator",
+    "boilerplate",
+    "node",
+    "starter",
+    "yeoman",
+    "plugin",
+    "module",
+    "node_module",
+    "node-module",
+    "npm-module",
+    "tape",
+    "tap",
+    "coveralls",
+    "coveralls.io",
+    "travis",
+    "codacy",
+    "codeclimate",
+    "cli",
+    "npm",
+    "npm scripts",
+    "productivity"
+  ],
+  "dependencies": {
+    "camelcase": "^2.0.1",
+    "generator-git-setup": "^1.0.0",
+    "generator-travis": "^1.1.4",
+    "normalize-url": "^1.4.0",
+    "slug": "^0.9.1",
+    "yeoman-generator": "^1.1.1",
+    "snyk": "^1.316.1"
+  },
+  "devDependencies": {
+    "bluebird": "^3.5.0",
+    "eslint": "^4.4.1",
+    "fs-extra": "^4.0.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.5.0",
+    "yeoman-assert": "^3.0.0",
+    "yeoman-test": "^1.7.0"
+  },
+  "snyk": true
 }
